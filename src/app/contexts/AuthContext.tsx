@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 import { useQuery } from "@tanstack/react-query";
 
-import { PageLoader } from "../../view/Components/PageLoader";
+import { LaunchScreen } from "../../view/Components/LaunchScreen";
 import { localStorageKeys } from "../config/localStorageKeys";
 import { usersService } from "../services/usersService";
 
@@ -60,7 +60,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [isError, signOut]);
 
   if (isFetching) {
-    return <PageLoader />;
+    return <LaunchScreen />;
   }
 
   return (
