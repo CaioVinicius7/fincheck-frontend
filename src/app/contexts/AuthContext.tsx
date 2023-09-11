@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 
 import { useQuery } from "@tanstack/react-query";
 
+import { PageLoader } from "../../view/Components/PageLoader";
 import { localStorageKeys } from "../config/localStorageKeys";
 import { usersService } from "../services/usersService";
 
@@ -29,7 +30,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return !!storedAccessToken;
   });
 
-  const { isError } = useQuery({
+  const { isError, isFetching } = useQuery({
     queryKey: ["users", "me"],
     queryFn: () => usersService.me(),
     enabled: signedIn,
@@ -55,6 +56,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signOut();
     }
   }, [isError, signOut]);
+
+  if (isFetching) {
+    return <PageLoader />;
+  }
 
   return (
     <AuthContext.Provider
