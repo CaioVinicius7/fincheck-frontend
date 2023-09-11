@@ -1,6 +1,7 @@
 import { Toaster } from "react-hot-toast";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { AuthProvider } from "./app/contexts/AuthContext";
 import { Router } from "./Router";
@@ -21,6 +22,8 @@ export function App() {
         <Router />
         <Toaster />
       </AuthProvider>
+
+      <ReactQueryDevtools />
     </QueryClientProvider>
   );
 }
