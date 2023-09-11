@@ -5,6 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 
+import { useAuth } from "../../../app/hooks/useAuth";
 import { authService } from "../../../app/services/authService";
 import { SignInParams } from "../../../app/services/authService/signin";
 
@@ -36,11 +37,13 @@ export function useLoginController() {
     }
   });
 
+  const { signIn } = useAuth();
+
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
       const { accessToken } = await mutateAsync(data);
 
-      console.log(accessToken);
+      signIn(accessToken);
     } catch {
       toast.error("Credenciais inválidas!");
     }
