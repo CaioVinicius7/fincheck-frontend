@@ -3,6 +3,7 @@
     "clsx",
     "fincheck",
     "Fincheck",
+    "headlessui",
     "hookform",
     "signin",
     "tailwindcss",
