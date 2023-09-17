@@ -46,7 +46,7 @@ export function useRegisterController() {
 
       signIn(accessToken);
     } catch {
-      toast.error("Ocorreu um erro ao criara a sua conta!");
+      toast.error("Ocorreu um erro ao criar a sua conta!");
     }
   });
 
