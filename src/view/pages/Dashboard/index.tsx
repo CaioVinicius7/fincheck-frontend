@@ -5,7 +5,7 @@ import { Transactions } from "./components/Transactions";
 
 export function Dashboard() {
   return (
-    <div className="flex h-full w-full flex-col p-4 md:px-8 md:pb-8 md:pt-6">
+    <div className="flex h-full w-full flex-col gap-4 p-4 md:px-8 md:pb-8 md:pt-6">
       <header className="flex h-12 items-center justify-between">
         <Logo className="h-6 text-teal-900" />
         <UserMenu />
