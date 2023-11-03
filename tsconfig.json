@@ -29,7 +29,6 @@
       "@config/*": ["./src/app/config/*"],
       "@contexts/*": ["./src/app/contexts/*"],
       "@hooks/*": ["./src/app/hooks/*"],
-      "@interfaces/*": ["./src/app/interfaces/*"],
       "@services/*": ["./src/app/services/*"],
       "@utils/*": ["./src/app/utils/*"],
       "@entities/*": ["./src/app/entities/*"],
