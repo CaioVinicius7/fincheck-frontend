@@ -6,6 +6,8 @@
     "headlessui",
     "hookform",
     "signin",
+    "swiper",
+    "Swiper",
     "tailwindcss",
     "tanstack"
   ]
