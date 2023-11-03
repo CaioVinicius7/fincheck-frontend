@@ -7,11 +7,10 @@ import {
 } from "react";
 import toast from "react-hot-toast";
 
+import { LaunchScreen } from "@components/LaunchScreen";
+import { localStorageKeys } from "@config/localStorageKeys";
+import { usersService } from "@services/usersService";
 import { useQuery } from "@tanstack/react-query";
-
-import { LaunchScreen } from "../../view/Components/LaunchScreen";
-import { localStorageKeys } from "../config/localStorageKeys";
-import { usersService } from "../services/usersService";
 
 interface AuthContextValue {
   signedIn: boolean;

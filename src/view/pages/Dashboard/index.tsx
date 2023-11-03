@@ -1,5 +1,6 @@
+import { UserMenu } from "@components/UserMenu";
+
 import { Logo } from "../../Components/Logo";
-import { UserMenu } from "../../Components/UserMenu";
 import { Accounts } from "./components/Accounts";
 import { Transactions } from "./components/Transactions";
 

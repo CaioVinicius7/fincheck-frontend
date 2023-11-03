@@ -3,11 +3,10 @@ import { toast } from "react-hot-toast";
 import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@hooks/useAuth";
+import { authService } from "@services/authService";
+import type { SignUpParams } from "@services/authService/signup";
 import { useMutation } from "@tanstack/react-query";
-
-import { useAuth } from "../../../app/hooks/useAuth";
-import { authService } from "../../../app/services/authService";
-import { SignUpParams } from "../../../app/services/authService/signup";
 
 const schema = z.object({
   name: z.string().nonempty("Nome é obrigatório."),

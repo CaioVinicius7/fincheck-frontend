@@ -1,9 +1,9 @@
 import { Toaster } from "react-hot-toast";
 
+import { AuthProvider } from "@contexts/AuthContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import { AuthProvider } from "./app/contexts/AuthContext";
 import { Router } from "./Router";
 
 const queryClient = new QueryClient({

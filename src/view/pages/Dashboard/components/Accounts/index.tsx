@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { EyeIcon } from "../../../../Components/icons/EyeIcon";
+import { EyeIcon } from "@components/icons/EyeIcon";
+
 import { AccountCard } from "./AccountCard";
 import { AccountSliderNavigation } from "./AccountSliderNavigation";
 import { useAccountsController } from "./useAccountsController";

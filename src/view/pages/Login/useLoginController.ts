@@ -3,11 +3,10 @@ import { toast } from "react-hot-toast";
 import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@hooks/useAuth";
+import { authService } from "@services/authService";
+import type { SignInParams } from "@services/authService/signin";
 import { useMutation } from "@tanstack/react-query";
-
-import { useAuth } from "../../../app/hooks/useAuth";
-import { authService } from "../../../app/services/authService";
-import { SignInParams } from "../../../app/services/authService/signin";
 
 const schema = z.object({
   email: z
