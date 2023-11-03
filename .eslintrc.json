@@ -38,7 +38,25 @@
       "warn",
       {
         "newlinesBetween": "always",
-        "groups": ["module", "/^@/", ["parent", "sibling", "index"]],
+        "groups": [
+          "module",
+          [
+            "/^@router/",
+            "/^@assets/",
+
+            "/^@config/",
+            "/^@contexts/",
+            "/^@hooks/",
+            "/^@services/",
+            "/^@utils/",
+            "/^@entities/",
+
+            "/^@components/",
+            "/^@layouts/",
+            "/^@pages/"
+          ],
+          ["parent", "sibling", "index"]
+        ],
         "alphabetize": { "order": "asc", "ignoreCase": true }
       }
     ]
