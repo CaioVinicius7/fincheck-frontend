@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import {
   ReactNode,
   createContext,
@@ -10,7 +11,6 @@ import toast from "react-hot-toast";
 import { LaunchScreen } from "@components/LaunchScreen";
 import { localStorageKeys } from "@config/localStorageKeys";
 import { usersService } from "@services/usersService";
-import { useQuery } from "@tanstack/react-query";
 
 interface AuthContextValue {
   signedIn: boolean;

@@ -1,6 +1,6 @@
+import { CrossCircledIcon } from "@radix-ui/react-icons";
 import { forwardRef, type ComponentProps } from "react";
 
-import { CrossCircledIcon } from "@radix-ui/react-icons";
 import { cn } from "@utils/cn";
 
 interface InputProps extends ComponentProps<"input"> {
