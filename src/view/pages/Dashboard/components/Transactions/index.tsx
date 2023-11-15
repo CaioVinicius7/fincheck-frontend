@@ -5,12 +5,16 @@ import { CategoryIcon } from "@components/icons/categories/CategoryIcon";
 import { FilterIcon } from "@components/icons/FilterIcon";
 import { TransactionsIcon } from "@components/icons/TransactionsIcon";
 import { MONTHS } from "@config/constants";
+import { cn } from "@utils/cn";
 import { formatCurrency } from "@utils/formatCurrency";
 
 import { SliderNavigation } from "./SliderNavigation";
 import { SliderOption } from "./SliderOption";
+import { useTransactionsController } from "./useTransactionsController";
 
 export function Transactions() {
+  const { areValuesVisible } = useTransactionsController();
+
   return (
     <div className="flex h-full w-full flex-col rounded-2xl bg-gray-100 px-4 py-8 md:p-10">
       <header>
@@ -60,7 +64,12 @@ export function Transactions() {
             </div>
           </div>
 
-          <span className="font-medium tracking-[-0.5px] text-red-800">
+          <span
+            className={cn(
+              "font-medium tracking-[-0.5px] text-red-800",
+              !areValuesVisible && "blur-sm"
+            )}
+          >
             - {formatCurrency(123)}
           </span>
         </div>
@@ -77,7 +86,12 @@ export function Transactions() {
             </div>
           </div>
 
-          <span className="font-medium tracking-[-0.5px] text-green-800">
+          <span
+            className={cn(
+              "font-medium tracking-[-0.5px] text-green-800",
+              !areValuesVisible && "blur-sm"
+            )}
+          >
             {formatCurrency(123)}
           </span>
         </div>

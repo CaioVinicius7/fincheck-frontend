@@ -1,4 +1,6 @@
 import { BankAccountTypeIcon } from "@components/icons/BankAccountTypeIcon";
+import { useDashboard } from "@pages/Dashboard/DashboardContext/useDashboard";
+import { cn } from "@utils/cn";
 import { formatCurrency } from "@utils/formatCurrency";
 
 interface AccountCard {
@@ -9,6 +11,8 @@ interface AccountCard {
 }
 
 export function AccountCard({ color, name, balance, type }: AccountCard) {
+  const { areValuesVisible } = useDashboard();
+
   return (
     <div
       className="flex h-[200px] flex-col justify-between rounded-2xl border-b-4 border-teal-950 bg-white p-4"
@@ -25,7 +29,12 @@ export function AccountCard({ color, name, balance, type }: AccountCard) {
       </div>
 
       <div>
-        <span className="block font-medium tracking-[-0.5px] text-gray-800">
+        <span
+          className={cn(
+            "block font-medium tracking-[-0.5px] text-gray-800",
+            !areValuesVisible && "blur-sm"
+          )}
+        >
           {formatCurrency(balance)}
         </span>
 
