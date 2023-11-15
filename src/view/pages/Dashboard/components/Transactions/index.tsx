@@ -15,18 +15,20 @@ import { SliderOption } from "./SliderOption";
 import { useTransactionsController } from "./useTransactionsController";
 
 export function Transactions() {
-  const { areValuesVisible, isLoading, transactions } =
+  const { areValuesVisible, transactions, isInitialLoading, isLoading } =
     useTransactionsController();
+
+  const hasTransactions = transactions.length > 0;
 
   return (
     <div className="flex h-full w-full flex-col rounded-2xl bg-gray-100 px-4 py-8 md:p-10">
-      {isLoading && (
+      {isInitialLoading && (
         <div className="flex h-full w-full items-center justify-center">
           <Spinner className="h-10 w-10" />
         </div>
       )}
 
-      {!isLoading && (
+      {!isInitialLoading && (
         <>
           <header>
             <div className="flex items-center justify-between">
@@ -63,7 +65,13 @@ export function Transactions() {
           </header>
 
           <div className="mt-4 flex-1 space-y-2 overflow-y-auto">
-            {transactions.length === 0 && (
+            {isLoading && (
+              <div className="flex h-full flex-col items-center justify-center">
+                <Spinner className="h-10 w-10" />
+              </div>
+            )}
+
+            {!hasTransactions && !isLoading && (
               <div className="flex h-full flex-col items-center justify-center">
                 <img src={emptyStateImage} alt="Empty state" />
 
@@ -73,7 +81,7 @@ export function Transactions() {
               </div>
             )}
 
-            {transactions.length > 0 && (
+            {hasTransactions && !isLoading && (
               <>
                 <div className="flex items-center justify-between gap-4 rounded-2xl bg-white p-4">
                   <div className="flex flex-1 items-center gap-3">
