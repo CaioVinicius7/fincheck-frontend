@@ -1,7 +1,12 @@
 import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import { FilterIcon } from "@components/icons/FilterIcon";
 import { TransactionsIcon } from "@components/icons/TransactionsIcon";
+import { MONTHS } from "@config/constants";
+
+import { SliderNavigation } from "./SliderNavigation";
+import { SliderOption } from "./SliderOption";
 
 export function Transactions() {
   return (
@@ -19,6 +24,24 @@ export function Transactions() {
           <button>
             <FilterIcon />
           </button>
+        </div>
+
+        <div className="relative mt-6">
+          <Swiper slidesPerView={3} centeredSlides>
+            <SliderNavigation />
+
+            {MONTHS.map((month, index) => (
+              <SwiperSlide key={month}>
+                {({ isActive }) => (
+                  <SliderOption
+                    isActive={isActive}
+                    month={month}
+                    index={index}
+                  />
+                )}
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </header>
 
