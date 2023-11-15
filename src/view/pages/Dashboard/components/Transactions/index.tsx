@@ -1,16 +1,18 @@
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import { CategoryIcon } from "@components/icons/categories/CategoryIcon";
 import { FilterIcon } from "@components/icons/FilterIcon";
 import { TransactionsIcon } from "@components/icons/TransactionsIcon";
 import { MONTHS } from "@config/constants";
+import { formatCurrency } from "@utils/formatCurrency";
 
 import { SliderNavigation } from "./SliderNavigation";
 import { SliderOption } from "./SliderOption";
 
 export function Transactions() {
   return (
-    <div className="h-full w-full rounded-2xl bg-gray-100 px-4 py-8 md:p-10">
+    <div className="flex h-full w-full flex-col rounded-2xl bg-gray-100 px-4 py-8 md:p-10">
       <header>
         <div className="flex items-center justify-between">
           <button className="flex items-center gap-2">
@@ -45,7 +47,41 @@ export function Transactions() {
         </div>
       </header>
 
-      <div className="mt-4">Content</div>
+      <div className="mt-4 flex-1 space-y-2 overflow-y-auto">
+        <div className="flex items-center justify-between gap-4 rounded-2xl bg-white p-4">
+          <div className="flex flex-1 items-center gap-3">
+            <CategoryIcon type="expense" />
+
+            <div>
+              <strong className="block font-bold tracking-[-0.5px]">
+                Almoço
+              </strong>
+              <span className="text-sm text-gray-600">15/11/2023</span>
+            </div>
+          </div>
+
+          <span className="font-medium tracking-[-0.5px] text-red-800">
+            - {formatCurrency(123)}
+          </span>
+        </div>
+
+        <div className="flex items-center justify-between gap-4 rounded-2xl bg-white p-4">
+          <div className="flex flex-1 items-center gap-3">
+            <CategoryIcon type="income" />
+
+            <div>
+              <strong className="block font-bold tracking-[-0.5px]">
+                Almoço
+              </strong>
+              <span className="text-sm text-gray-600">15/11/2023</span>
+            </div>
+          </div>
+
+          <span className="font-medium tracking-[-0.5px] text-green-800">
+            {formatCurrency(123)}
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
