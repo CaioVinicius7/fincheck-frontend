@@ -4,6 +4,7 @@ import { Logo } from "../../Components/Logo";
 import { Accounts } from "./components/Accounts";
 import { Transactions } from "./components/Transactions";
 import { DashboardProvider } from "./DashboardContext";
+import { Fab } from "./Fab";
 
 export function Dashboard() {
   return (
@@ -22,6 +23,8 @@ export function Dashboard() {
             <Transactions />
           </div>
         </main>
+
+        <Fab />
       </div>
     </DashboardProvider>
   );
