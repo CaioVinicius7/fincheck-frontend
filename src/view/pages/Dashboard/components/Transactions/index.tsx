@@ -8,14 +8,22 @@ import { MONTHS } from "@config/constants";
 import { cn } from "@utils/cn";
 import { formatCurrency } from "@utils/formatCurrency";
 
+import { FiltersModal } from "./FiltersModal";
 import { SliderNavigation } from "./SliderNavigation";
 import { SliderOption } from "./SliderOption";
 import { TransactionTypeDropdown } from "./TransactionTypeDropdown";
 import { useTransactionsController } from "./useTransactionsController";
 
 export function Transactions() {
-  const { areValuesVisible, transactions, isInitialLoading, isLoading } =
-    useTransactionsController();
+  const {
+    areValuesVisible,
+    transactions,
+    isInitialLoading,
+    isLoading,
+    isFiltersModalOpen,
+    handleOpenFiltersModal,
+    handleCloseFiltersModal
+  } = useTransactionsController();
 
   const hasTransactions = transactions.length > 0;
 
@@ -29,11 +37,16 @@ export function Transactions() {
 
       {!isInitialLoading && (
         <>
+          <FiltersModal
+            open={isFiltersModalOpen}
+            onClose={handleCloseFiltersModal}
+          />
+
           <header>
             <div className="flex items-center justify-between">
               <TransactionTypeDropdown />
 
-              <button>
+              <button onClick={handleOpenFiltersModal}>
                 <FilterIcon />
               </button>
             </div>
