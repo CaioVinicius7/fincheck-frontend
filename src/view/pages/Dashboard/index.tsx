@@ -2,9 +2,9 @@ import { UserMenu } from "@components/UserMenu";
 
 import { Logo } from "../../Components/Logo";
 import { Accounts } from "./components/Accounts";
+import { Fab } from "./components/Fab";
 import { Transactions } from "./components/Transactions";
 import { DashboardProvider } from "./DashboardContext";
-import { Fab } from "./Fab";
 
 export function Dashboard() {
   return (
