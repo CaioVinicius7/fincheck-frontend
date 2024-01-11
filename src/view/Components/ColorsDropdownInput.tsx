@@ -12,8 +12,10 @@ type Color = {
 };
 
 interface ColorsDropdownInputProps {
-  className?: string;
+  value?: string;
+  onChange?: (value: string) => void;
   error?: string;
+  className?: string;
 }
 
 const colors: Color[] = [
@@ -34,13 +36,22 @@ const colors: Color[] = [
 ];
 
 export function ColorsDropdownInput({
-  className,
-  error
+  value,
+  onChange,
+  error,
+  className
 }: ColorsDropdownInputProps) {
-  const [selectedColor, setSelectedColor] = useState<null | Color>(null);
+  const [selectedColor, setSelectedColor] = useState<null | Color>(() => {
+    if (!value) {
+      return null;
+    }
+
+    return colors.find((c) => c.color === value) ?? null;
+  });
 
   function handleSelect(color: Color) {
     setSelectedColor(color);
+    onChange?.(color.color);
   }
 
   return (
