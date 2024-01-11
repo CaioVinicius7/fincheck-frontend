@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -37,6 +37,8 @@ export function useNewAccountModalController() {
     }
   });
 
+  const queryClient = useQueryClient();
+
   const { mutateAsync, isLoading } = useMutation({
     mutationFn: async (data: CreateBankAccountParams) => {
       return bankAccountsService.create(data);
@@ -49,6 +51,8 @@ export function useNewAccountModalController() {
         ...data,
         initialBalance: currencyStringToNumber(data.initialBalance)
       });
+
+      queryClient.invalidateQueries({ queryKey: ["bankAccounts"] });
 
       toast.success("Conta cadastrada com sucesso!");
 
