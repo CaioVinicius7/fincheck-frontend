@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -25,6 +26,8 @@ type FormData = z.infer<typeof schema>;
 export function useEditAccountModalController() {
   const { isEditAccountModalOpen, closeEditAccountModal, accountBeingEdited } =
     useDashboard();
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const {
     register,
@@ -67,6 +70,16 @@ export function useEditAccountModalController() {
     }
   });
 
+  function handleOpenDeleteModal() {
+    setIsDeleteModalOpen(true);
+  }
+
+  function handleCloseDeleteModal() {
+    setIsDeleteModalOpen(false);
+  }
+
+  function handleDeleteAccount() {}
+
   return {
     isEditAccountModalOpen,
     closeEditAccountModal,
@@ -75,6 +88,10 @@ export function useEditAccountModalController() {
     errors,
     control,
     isLoading,
-    accountBeingEdited
+    accountBeingEdited,
+    isDeleteModalOpen,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
+    handleDeleteAccount
   };
 }
