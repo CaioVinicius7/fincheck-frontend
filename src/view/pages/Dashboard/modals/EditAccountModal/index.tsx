@@ -23,7 +23,8 @@ export function EditAccountModal() {
     isDeleteModalOpen,
     handleOpenDeleteModal,
     handleCloseDeleteModal,
-    handleDeleteAccount
+    handleDeleteAccount,
+    isLoadingDelete
   } = useEditAccountModalController();
 
   if (isDeleteModalOpen) {
@@ -34,6 +35,7 @@ export function EditAccountModal() {
         despesas relacionados."
         onConfirm={handleDeleteAccount}
         onClose={handleCloseDeleteModal}
+        isLoading={isLoadingDelete}
       />
     );
   }
