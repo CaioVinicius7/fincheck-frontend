@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 
 import { bankAccountsService } from "@services/bankAccountsService";
-import { CreateBankAccountParams } from "@services/bankAccountsService/create";
+import type { CreateBankAccountParams } from "@services/bankAccountsService/create";
 import { currencyStringToNumber } from "@utils/currencyStringToNumber";
 
 import { useDashboard } from "../../DashboardContext/useDashboard";
