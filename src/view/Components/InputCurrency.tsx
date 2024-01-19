@@ -4,7 +4,7 @@ import { NumericFormat } from "react-number-format";
 import { cn } from "@utils/cn";
 
 interface InputCurrencyProps {
-  value?: string;
+  value?: string | number;
   onChange?: (value: string) => void;
   error?: string;
 }

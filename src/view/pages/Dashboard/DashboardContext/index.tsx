@@ -1,5 +1,7 @@
 import { ReactNode, createContext, useCallback, useState } from "react";
 
+import type { BankAccount } from "@entities/BankAccount";
+
 type NewTransactionType = "INCOME" | "EXPENSE";
 
 interface DashboardContextValue {
@@ -12,6 +14,10 @@ interface DashboardContextValue {
   openNewTransactionModal: (type: NewTransactionType) => void;
   closeNewTransactionModal: () => void;
   newTransactionType: NewTransactionType | null;
+  isEditAccountModalOpen: boolean;
+  accountBeingEdited: BankAccount | null;
+  openEditAccountModal: (bankAccount: BankAccount) => void;
+  closeEditAccountModal: () => void;
 }
 
 export const DashboardContext = createContext({} as DashboardContextValue);
@@ -23,6 +29,11 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     useState(false);
   const [newTransactionType, setNewTransactionType] =
     useState<NewTransactionType | null>(null);
+  const [isEditAccountModalOpen, setIsEditAccountModalOpen] = useState(false);
+  const [accountBeingEdited, setAccountBeingEdited] =
+    useState<BankAccount | null>(null);
+
+  console.log(accountBeingEdited);
 
   const toggleValuesVisibility = useCallback(() => {
     setAreValuesVisible((prevState) => !prevState);
@@ -46,6 +57,16 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     setIsNewTransactionModalOpen(false);
   }, []);
 
+  const openEditAccountModal = useCallback((bankAccount: BankAccount) => {
+    setAccountBeingEdited(bankAccount);
+    setIsEditAccountModalOpen(true);
+  }, []);
+
+  const closeEditAccountModal = useCallback(() => {
+    setAccountBeingEdited(null);
+    setIsEditAccountModalOpen(false);
+  }, []);
+
   return (
     <DashboardContext.Provider
       value={{
@@ -57,7 +78,11 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
         isNewTransactionModalOpen,
         openNewTransactionModal,
         closeNewTransactionModal,
-        newTransactionType
+        newTransactionType,
+        isEditAccountModalOpen,
+        accountBeingEdited,
+        openEditAccountModal,
+        closeEditAccountModal
       }}
     >
       {children}

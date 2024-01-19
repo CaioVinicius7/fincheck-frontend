@@ -2,23 +2,25 @@ import type { BankAccount } from "@entities/BankAccount";
 
 import { httpClient } from "../httpClient";
 
-export interface CreateBankAccountParams {
+export interface UpdateBankAccountParams {
+  id: string;
   name: string;
   initialBalance: number;
   color: string;
   type: "CASH" | "CHECKING" | "INVESTMENT";
 }
 
-type CreateBankAccountResponse = BankAccount[];
+type UpdateBankAccountResponse = BankAccount[];
 
-export async function create({
+export async function update({
+  id,
   name,
   initialBalance,
   color,
   type
-}: CreateBankAccountParams) {
-  const { data } = await httpClient.post<CreateBankAccountResponse>(
-    "/bank-accounts",
+}: UpdateBankAccountParams) {
+  const { data } = await httpClient.put<UpdateBankAccountResponse>(
+    `/bank-accounts/${id}`,
     {
       name,
       initialBalance,
