@@ -33,8 +33,6 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
   const [accountBeingEdited, setAccountBeingEdited] =
     useState<BankAccount | null>(null);
 
-  console.log(accountBeingEdited);
-
   const toggleValuesVisibility = useCallback(() => {
     setAreValuesVisible((prevState) => !prevState);
   }, []);
