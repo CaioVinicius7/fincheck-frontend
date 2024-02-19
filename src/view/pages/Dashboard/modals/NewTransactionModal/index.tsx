@@ -1,3 +1,5 @@
+import { Controller } from "react-hook-form";
+
 import { Button } from "@components/Button";
 import { DatePickerInput } from "@components/DatePickerInput";
 import { Input } from "@components/Input";
@@ -11,7 +13,11 @@ export function NewTransactionModal() {
   const {
     newTransactionType,
     isNewTransactionModalOpen,
-    closeNewTransactionModal
+    closeNewTransactionModal,
+    register,
+    control,
+    errors,
+    handleSubmit
   } = useNewTransactionModalController();
 
   const isExpense = newTransactionType === "EXPENSE";
@@ -22,7 +28,7 @@ export function NewTransactionModal() {
       open={isNewTransactionModalOpen}
       onClose={closeNewTransactionModal}
     >
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <span className="text-xs tracking-[-0.5px] text-gray-600">
             Valor da {isExpense ? "despesa" : "receita"}
@@ -30,54 +36,91 @@ export function NewTransactionModal() {
 
           <div className="flex items-center gap-2">
             <span className="text-lg tracking-[-0.5px] text-gray-600">R$</span>
-            <InputCurrency />
+
+            <Controller
+              name="value"
+              defaultValue="0"
+              control={control}
+              render={({ field: { value, onChange } }) => (
+                <InputCurrency
+                  value={value}
+                  onChange={onChange}
+                  error={errors.value?.message}
+                />
+              )}
+            />
           </div>
         </div>
 
         <div className="mt-10 flex flex-col gap-4">
           <Input
             type="text"
-            name="initialBalance"
             placeholder={isExpense ? "Nome da Despesa" : "Nome da Receita"}
+            error={errors.name?.message}
+            {...register("name")}
           />
 
-          <Select
-            placeholder="Categoria"
-            options={[
-              {
-                value: "CHECKING",
-                label: "Conta Corrente"
-              },
-              {
-                value: "INVESTMENT",
-                label: "Investimentos"
-              },
-              {
-                value: "CASH",
-                label: "Dinheiro Físico"
-              }
-            ]}
+          <Controller
+            name="categoryId"
+            control={control}
+            render={({ field: { value, onChange } }) => (
+              <Select
+                placeholder="Categoria"
+                options={[
+                  {
+                    value: "CHECKING",
+                    label: "Conta Corrente"
+                  },
+                  {
+                    value: "INVESTMENT",
+                    label: "Investimentos"
+                  },
+                  {
+                    value: "CASH",
+                    label: "Dinheiro Físico"
+                  }
+                ]}
+                value={value}
+                onChange={onChange}
+                error={errors.categoryId?.message}
+              />
+            )}
           />
 
-          <Select
-            placeholder={isExpense ? "Pagar com" : "Receber com"}
-            options={[
-              {
-                value: "CHECKING",
-                label: "Conta Corrente"
-              },
-              {
-                value: "INVESTMENT",
-                label: "Investimentos"
-              },
-              {
-                value: "CASH",
-                label: "Dinheiro Físico"
-              }
-            ]}
+          <Controller
+            name="bankAccountId"
+            control={control}
+            render={({ field: { value, onChange } }) => (
+              <Select
+                placeholder={isExpense ? "Pagar com" : "Receber com"}
+                options={[
+                  {
+                    value: "CHECKING",
+                    label: "Conta Corrente"
+                  },
+                  {
+                    value: "INVESTMENT",
+                    label: "Investimentos"
+                  },
+                  {
+                    value: "CASH",
+                    label: "Dinheiro Físico"
+                  }
+                ]}
+                value={value}
+                onChange={onChange}
+                error={errors.bankAccountId?.message}
+              />
+            )}
           />
 
-          <DatePickerInput />
+          <Controller
+            name="date"
+            control={control}
+            render={({ field: { value, onChange } }) => (
+              <DatePickerInput value={value} onChange={onChange} />
+            )}
+          />
         </div>
 
         <Button type="submit" className="mt-6 w-full">
