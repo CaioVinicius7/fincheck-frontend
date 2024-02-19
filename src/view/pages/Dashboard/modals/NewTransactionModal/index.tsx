@@ -17,7 +17,9 @@ export function NewTransactionModal() {
     register,
     control,
     errors,
-    handleSubmit
+    handleSubmit,
+    accounts,
+    categories
   } = useNewTransactionModalController();
 
   const isExpense = newTransactionType === "EXPENSE";
@@ -66,20 +68,10 @@ export function NewTransactionModal() {
             render={({ field: { value, onChange } }) => (
               <Select
                 placeholder="Categoria"
-                options={[
-                  {
-                    value: "CHECKING",
-                    label: "Conta Corrente"
-                  },
-                  {
-                    value: "INVESTMENT",
-                    label: "Investimentos"
-                  },
-                  {
-                    value: "CASH",
-                    label: "Dinheiro Físico"
-                  }
-                ]}
+                options={categories.map((category) => ({
+                  value: category.id,
+                  label: category.name
+                }))}
                 value={value}
                 onChange={onChange}
                 error={errors.categoryId?.message}
@@ -93,20 +85,10 @@ export function NewTransactionModal() {
             render={({ field: { value, onChange } }) => (
               <Select
                 placeholder={isExpense ? "Pagar com" : "Receber com"}
-                options={[
-                  {
-                    value: "CHECKING",
-                    label: "Conta Corrente"
-                  },
-                  {
-                    value: "INVESTMENT",
-                    label: "Investimentos"
-                  },
-                  {
-                    value: "CASH",
-                    label: "Dinheiro Físico"
-                  }
-                ]}
+                options={accounts.map((account) => ({
+                  value: account.id,
+                  label: account.name
+                }))}
                 value={value}
                 onChange={onChange}
                 error={errors.bankAccountId?.message}
@@ -118,7 +100,11 @@ export function NewTransactionModal() {
             name="date"
             control={control}
             render={({ field: { value, onChange } }) => (
-              <DatePickerInput value={value} onChange={onChange} />
+              <DatePickerInput
+                value={value}
+                onChange={onChange}
+                error={errors.date?.message}
+              />
             )}
           />
         </div>
