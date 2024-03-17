@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { transactionsService } from "@services/transactionsService";
 
 export function useTransactions() {
-  const { data, isFetching, isInitialLoading } = useQuery({
+  const { data, isFetching, isLoading } = useQuery({
     queryKey: ["transactions"],
     queryFn: () =>
       transactionsService.getAll({
@@ -15,6 +15,6 @@ export function useTransactions() {
   return {
     transactions: data ?? [],
     isLoading: isFetching,
-    isInitialLoading
+    isInitialLoading: isLoading
   };
 }
