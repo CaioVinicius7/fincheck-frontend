@@ -1,7 +1,7 @@
 import type { Transaction } from "@entities/Transaction";
 import { httpClient } from "@services/httpClient";
 
-interface TransactionsFilter {
+export interface TransactionsFilters {
   month: number;
   year: number;
   bankAccountId?: string;
@@ -10,7 +10,7 @@ interface TransactionsFilter {
 
 type TransactionsResponse = Transaction[];
 
-export async function getAll(filters: TransactionsFilter) {
+export async function getAll(filters: TransactionsFilters) {
   const { data } = await httpClient.get<TransactionsResponse>("/transactions", {
     params: filters
   });
