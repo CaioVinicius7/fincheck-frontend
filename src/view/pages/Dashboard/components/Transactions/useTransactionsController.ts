@@ -24,11 +24,30 @@ export function useTransactionsController() {
     setIsFiltersModalOpen(false);
   }
 
-  function handleChangeMonth(month: number) {
-    setFilters((prevState) => ({
-      ...prevState,
-      month
-    }));
+  function handleChangeFilters<TFilter extends keyof TransactionsFilters>(
+    filter: TFilter
+  ) {
+    return (value: TransactionsFilters[TFilter]) => {
+      if (value === filters[filter]) return;
+
+      setFilters((prevState) => ({
+        ...prevState,
+        [filter]: value
+      }));
+    };
+  }
+
+  function handleApplyFilters({
+    bankAccountId,
+    year
+  }: {
+    bankAccountId: string | undefined;
+    year: number;
+  }) {
+    handleChangeFilters("bankAccountId")(bankAccountId);
+    handleChangeFilters("year")(year);
+
+    setIsFiltersModalOpen(false);
   }
 
   useEffect(() => {
@@ -44,6 +63,7 @@ export function useTransactionsController() {
     handleOpenFiltersModal,
     handleCloseFiltersModal,
     filters,
-    handleChangeMonth
+    handleChangeFilters,
+    handleApplyFilters
   };
 }
