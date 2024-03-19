@@ -39,7 +39,7 @@ export function useNewAccountModalController() {
 
   const queryClient = useQueryClient();
 
-  const { mutateAsync, isLoading } = useMutation({
+  const { mutateAsync, isPending: isLoading } = useMutation({
     mutationFn: async (data: CreateBankAccountParams) => {
       return bankAccountsService.create(data);
     }

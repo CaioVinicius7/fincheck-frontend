@@ -46,13 +46,13 @@ export function useEditAccountModalController() {
 
   const queryClient = useQueryClient();
 
-  const { mutateAsync: updateAccount, isLoading } = useMutation({
+  const { mutateAsync: updateAccount, isPending: isLoading } = useMutation({
     mutationFn: async (data: UpdateBankAccountParams) => {
       return bankAccountsService.update(data);
     }
   });
 
-  const { mutateAsync: removeAccount, isLoading: isLoadingDelete } =
+  const { mutateAsync: removeAccount, isPending: isLoadingDelete } =
     useMutation({
       mutationFn: async (bankAccountId: string) => {
         return bankAccountsService.remove(bankAccountId);

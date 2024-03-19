@@ -44,7 +44,7 @@ export function useEditTransactionModalController(
   const queryClient = useQueryClient();
   const { accounts } = useBankAccounts();
   const { categories: categoriesList } = useCategories();
-  const { isPending, mutateAsync } = useMutation({
+  const { isPending: isLoading, mutateAsync } = useMutation({
     mutationFn: transactionsService.update
   });
 
@@ -89,6 +89,6 @@ export function useEditTransactionModalController(
     handleSubmit,
     accounts,
     categories,
-    isLoading: isPending
+    isLoading
   };
 }

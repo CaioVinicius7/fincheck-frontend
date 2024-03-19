@@ -49,7 +49,9 @@ export function useNewTransactionModalController() {
   const { accounts } = useBankAccounts();
   const { categories: categoriesList } = useCategories();
 
-  const { isLoading, mutateAsync } = useMutation(transactionsService.create);
+  const { isPending: isLoading, mutateAsync } = useMutation({
+    mutationFn: transactionsService.create
+  });
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {

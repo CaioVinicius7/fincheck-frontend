@@ -11,11 +11,11 @@ import type { SignInParams } from "@services/authService/signin";
 const schema = z.object({
   email: z
     .string()
-    .nonempty("E-mail é obrigatório")
+    .min(1, "E-mail é obrigatório")
     .email("Informe um e-mail válido."),
   password: z
     .string()
-    .nonempty("Senha é obrigatória")
+    .min(1, "Senha é obrigatória")
     .min(8, "Senha deve conter pelo menos 8 dígitos.")
 });
 
@@ -30,7 +30,7 @@ export function useLoginController() {
     resolver: zodResolver(schema)
   });
 
-  const { mutateAsync, isLoading } = useMutation({
+  const { mutateAsync, isPending: isLoading } = useMutation({
     mutationFn: async (data: SignInParams) => {
       return authService.signIn(data);
     }

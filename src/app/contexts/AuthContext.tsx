@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   ReactNode,
   createContext,
@@ -29,7 +29,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return !!storedAccessToken;
   });
 
-  const { isFetching, isError, isSuccess, remove } = useQuery({
+  const queryClient = useQueryClient();
+
+  const { isFetching, isError, isSuccess } = useQuery({
     queryKey: ["users", "me"],
     queryFn: () => usersService.me(),
     enabled: signedIn,
@@ -45,10 +47,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signOut = useCallback(() => {
     localStorage.removeItem(localStorageKeys.ACCESS_TOKEN);
 
-    remove();
+    queryClient.removeQueries({
+      queryKey: ["users", "me"],
+      exact: true
+    });
 
     setSignedIn(false);
-  }, [remove]);
+  }, [queryClient]);
 
   useEffect(() => {
     if (isError) {
