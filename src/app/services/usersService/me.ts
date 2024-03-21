@@ -1,8 +1,9 @@
+import type { User } from "@entities/User";
+
 import { httpClient } from "../httpClient";
 
 interface meResponse {
-  name: string;
-  email: string;
+  user: User;
 }
 
 export async function me() {
