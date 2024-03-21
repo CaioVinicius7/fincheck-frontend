@@ -50,8 +50,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem(localStorageKeys.ACCESS_TOKEN);
 
     queryClient.removeQueries({
-      queryKey: ["users", "me"],
-      exact: true
+      queryKey: ["users", "me"]
     });
 
     setSignedIn(false);

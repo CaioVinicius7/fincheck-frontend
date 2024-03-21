@@ -47,12 +47,20 @@ export function useEditTransactionModalController(
   const { accounts } = useBankAccounts();
   const { categories: categoriesList } = useCategories();
   const { mutateAsync: updateTransaction, isPending: isLoading } = useMutation({
-    mutationFn: transactionsService.update
+    mutationFn: transactionsService.update,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["transactions"] });
+      queryClient.invalidateQueries({ queryKey: ["bankAccounts"] });
+    }
   });
 
   const { mutateAsync: removeTransaction, isPending: isLoadingDelete } =
     useMutation({
-      mutationFn: transactionsService.remove
+      mutationFn: transactionsService.remove,
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["transactions"] });
+        queryClient.invalidateQueries({ queryKey: ["bankAccounts"] });
+      }
     });
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
@@ -64,8 +72,6 @@ export function useEditTransactionModalController(
         type: transaction!.type,
         date: data.date.toISOString()
       });
-
-      queryClient.invalidateQueries({ queryKey: ["transactions"] });
 
       toast.success(
         transaction!.type === "EXPENSE"
@@ -100,8 +106,6 @@ export function useEditTransactionModalController(
   async function handleDeleteTransaction() {
     try {
       await removeTransaction(transaction!.id);
-
-      queryClient.invalidateQueries({ queryKey: ["transactions"] });
 
       toast.success(
         transaction!.type === "EXPENSE"

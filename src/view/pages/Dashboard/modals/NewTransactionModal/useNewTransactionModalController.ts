@@ -50,7 +50,11 @@ export function useNewTransactionModalController() {
   const { categories: categoriesList } = useCategories();
 
   const { isPending: isLoading, mutateAsync } = useMutation({
-    mutationFn: transactionsService.create
+    mutationFn: transactionsService.create,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["transactions"] });
+      queryClient.invalidateQueries({ queryKey: ["bankAccounts"] });
+    }
   });
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
@@ -61,8 +65,6 @@ export function useNewTransactionModalController() {
         type: newTransactionType!,
         date: data.date.toISOString()
       });
-
-      queryClient.invalidateQueries({ queryKey: ["transactions"] });
 
       toast.success(
         newTransactionType === "EXPENSE"
